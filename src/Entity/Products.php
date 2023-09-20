@@ -28,9 +28,9 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Suppliers $supplier = null;
+    // #[ORM\ManyToOne(inversedBy: 'products')]
+    // #[ORM\JoinColumn(nullable: false)]
+    // private ?Suppliers $supplier = null;
 
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[ORM\JoinColumn(nullable: false)]
@@ -97,17 +97,17 @@ class Products
         return $this;
     }
 
-    public function getSupplier(): ?Suppliers
-    {
-        return $this->supplier;
-    }
+    // public function getSupplier(): ?Suppliers
+    // {
+    //     return $this->supplier;
+    // }
 
-    public function setSupplier(?Suppliers $supplier): static
-    {
-        $this->supplier = $supplier;
+    // public function setSupplier(?Suppliers $supplier): static
+    // {
+    //     $this->supplier = $supplier;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getCategories(): ?Categories
     {
