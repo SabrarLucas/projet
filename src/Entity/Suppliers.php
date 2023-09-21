@@ -18,7 +18,7 @@ class Suppliers
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'supplier', targetEntity: Products::class)]
+    #[ORM\OneToMany(mappedBy: 'supp_id', targetEntity: Products::class)]
     private Collection $products;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Suppliers
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setSupplier($this);
+            $product->setSuppId($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Suppliers
     {
         if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($product->getSupplier() === $this) {
-                $product->setSupplier(null);
+            if ($product->getSuppId() === $this) {
+                $product->setSuppId(null);
             }
         }
 

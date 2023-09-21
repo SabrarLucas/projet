@@ -39,6 +39,10 @@ class Products
     #[ORM\ManyToMany(targetEntity: Orders::class, inversedBy: 'products')]
     private Collection $order_detail;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Suppliers $supp_id = null;
+
     public function __construct()
     {
         $this->order_detail = new ArrayCollection();
@@ -141,6 +145,18 @@ class Products
     public function removeOrderDetail(Orders $orderDetail): static
     {
         $this->order_detail->removeElement($orderDetail);
+
+        return $this;
+    }
+
+    public function getSuppId(): ?Suppliers
+    {
+        return $this->supp_id;
+    }
+
+    public function setSuppId(?Suppliers $supp_id): static
+    {
+        $this->supp_id = $supp_id;
 
         return $this;
     }

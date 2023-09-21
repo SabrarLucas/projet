@@ -22,7 +22,7 @@ class CategoriesFixtures extends Fixture
 
         for($i = 2; $i <=5; $i++) {
             $categorie = new Categories();
-            $categorie->setName('Categorie'.$i)
+            $categorie->setName($faker->text(10))
                     ->setImage($faker->imageUrl(300, 300))
                     ->setParent($parent);
 
