@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker;
+use Faker\Factory;
 use App\Entity\Users;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -17,7 +18,7 @@ class UsersFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
 
         $admin = new Users();
         $admin->setEmail('pinchon@mail.fr')
