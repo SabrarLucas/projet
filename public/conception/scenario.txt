@@ -1,4 +1,4 @@
-Acteur principal : Client (Particulier ou Professionnel)
+Acteur principal : Client
 
 Acteurs secondaires : Catalogue en ligne, Système, Service Commercial
 
@@ -24,11 +24,9 @@ Scénario principal :
 
 4. Le client passe à l'étape de la commande et fournit les informations nécessaires, notamment les adresses de livraison et de facturation.
 
-5. Le client choisit le mode de paiement. Si le client est un particulier, il est dirigé vers une page de paiement en ligne pour effectuer le paiement immédiat. 
-Si le client est un professionnel, il peut choisir le paiement en différé par virement ou par chèque.
+5. Le client est dirigé vers une page de paiement en ligne pour effectuer le paiement immédiat.
 
-6. Le système calcule le montant total de la commande en appliquant les tarifs appropriés en fonction de la catégorie du client et des éventuelles réductions 
-négociées par le service commercial.
+6. Le système calcule le montant total de la commande.
 
 7. Le client confirme la commande en examinant toutes les informations de la commande, y compris les détails des produits, les adresses de livraison et de facturation, 
 le montant total et les modalités de paiement.
@@ -39,8 +37,7 @@ le montant total et les modalités de paiement.
 
 10. Le système met à jour les stocks des produits commandés pour refléter la sortie des produits du stock.
 
-11. Si le client est un particulier, le système génère automatiquement un bon de livraison et une facture, qu'il envoie par e-mail au client. 
-Si le client est un professionnel, le système génère un bon de livraison et une facture, et note que le paiement sera effectué ultérieurement.
+11. Le système génère automatiquement un bon de livraison et une facture, qu'il envoie par e-mail au client. 
 
 Extensions :
 
