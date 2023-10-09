@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="s4ljH05xJMDupNafC5nw" name="Page-1">
-        <mxGraphModel dx="691" dy="507" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="779" dy="552" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -25,7 +25,7 @@
                 <mxCell id="26" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" parent="7" vertex="1">
                     <mxGeometry x="45" y="350" width="10" height="400" as="geometry"/>
                 </mxCell>
-                <mxCell id="33" value="Calcule le montant" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="7">
+                <mxCell id="33" value="Calcule le montant" style="html=1;verticalAlign=bottom;endArrow=block;" parent="7" edge="1">
                     <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
                         <mxPoint x="55" y="400" as="sourcePoint"/>
                         <mxPoint x="55" y="430" as="targetPoint"/>
@@ -36,10 +36,37 @@
                         <mxPoint x="10" y="-10" as="offset"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="41" value="Envoe bon livraison" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="7">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="20" y="730" as="sourcePoint"/>
-                        <mxPoint x="-60" y="730" as="targetPoint"/>
+                <mxCell id="36" value="Enregistre la commande" style="html=1;verticalAlign=bottom;endArrow=block;exitX=0.91;exitY=0.46;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.979;entryY=0.541;entryDx=0;entryDy=0;entryPerimeter=0;" parent="7" edge="1" target="26" source="26">
+                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
+                        <mxPoint x="65.00000000000011" y="534.9999999999999" as="sourcePoint"/>
+                        <mxPoint x="65.00000000000011" y="564.9999999999999" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="125" y="535"/>
+                            <mxPoint x="125" y="565"/>
+                        </Array>
+                        <mxPoint x="10" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="39" value="Met a jour les stocks" style="html=1;verticalAlign=bottom;endArrow=block;" parent="7" edge="1" target="26" source="26">
+                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
+                        <mxPoint x="70.00000000000011" y="619.9999999999999" as="sourcePoint"/>
+                        <mxPoint x="70.00000000000011" y="649.9999999999999" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="130" y="620"/>
+                            <mxPoint x="130" y="650"/>
+                        </Array>
+                        <mxPoint x="10" y="-10" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="40" value="Genere bon livraison" style="html=1;verticalAlign=bottom;endArrow=block;entryX=0.91;entryY=0.903;entryDx=0;entryDy=0;entryPerimeter=0;" parent="7" edge="1" target="26" source="26">
+                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
+                        <mxPoint x="70.00000000000011" y="679.9999999999999" as="sourcePoint"/>
+                        <mxPoint x="70.00000000000011" y="709.9999999999999" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="130" y="680"/>
+                            <mxPoint x="130" y="710"/>
+                        </Array>
+                        <mxPoint x="10" y="-10" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="8" value="Catalogue" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" parent="1" vertex="1">
@@ -79,7 +106,7 @@
                         <mxPoint x="414" y="270" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="19" value="Confirme l'ajout" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;entryX=0.91;entryY=0.7;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.071;exitY=0.746;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" target="13" edge="1" source="16">
+                <mxCell id="19" value="Confirme l'ajout" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;entryX=0.91;entryY=0.7;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.071;exitY=0.746;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="16" target="13" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="410" y="310" as="sourcePoint"/>
                         <mxPoint x="160" y="310" as="targetPoint"/>
@@ -100,67 +127,40 @@
                         <mxPoint x="240" y="400" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="27" value="Initie le paiement" style="html=1;verticalAlign=bottom;endArrow=block;" parent="1" edge="1">
+                <mxCell id="27" value="Initie le paiement" style="html=1;verticalAlign=bottom;endArrow=block;exitX=0.979;exitY=0.098;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.152;entryY=0.073;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="26" source="25">
                     <mxGeometry width="80" relative="1" as="geometry">
                         <mxPoint x="150" y="430" as="sourcePoint"/>
                         <mxPoint x="240" y="430" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="31" value="Affiche la page de paiement" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="1">
+                <mxCell id="31" value="Affiche la page de paiement" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;entryX=0.979;entryY=0.268;entryDx=0;entryDy=0;entryPerimeter=0;exitX=-0.055;exitY=0.249;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" target="25" source="26">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="210" y="500" as="sourcePoint"/>
                         <mxPoint x="150" y="500" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="32" value="Confirme la commande" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="1">
+                <mxCell id="32" value="Confirme la commande" style="html=1;verticalAlign=bottom;endArrow=block;entryX=0.152;entryY=0.323;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.117;exitY=0.34;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" edge="1" target="26" source="25">
                     <mxGeometry width="80" relative="1" as="geometry">
                         <mxPoint x="150" y="530" as="sourcePoint"/>
                         <mxPoint x="210" y="530" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="35" value="Soumet la commande" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="1">
+                <mxCell id="35" value="Soumet la commande" style="html=1;verticalAlign=bottom;endArrow=block;exitX=0.91;exitY=0.411;exitDx=0;exitDy=0;exitPerimeter=0;entryX=-0.262;entryY=0.396;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="26" source="25">
                     <mxGeometry width="80" relative="1" as="geometry">
                         <mxPoint x="150" y="560" as="sourcePoint"/>
                         <mxPoint x="230" y="560" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="36" value="Enregistre la commande" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="1">
-                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
-                        <mxPoint x="285.0000000000001" y="584.9999999999999" as="sourcePoint"/>
-                        <mxPoint x="285.0000000000001" y="614.9999999999999" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="345" y="585"/>
-                            <mxPoint x="345" y="615"/>
-                        </Array>
-                        <mxPoint x="10" y="-10" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="37" value="Confirme enregistrement" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;" edge="1" parent="1">
+                <mxCell id="37" value="Confirme enregistrement" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;exitX=0.014;exitY=0.598;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.186;entryY=0.611;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="25" source="26">
                     <mxGeometry relative="1" as="geometry">
                         <mxPoint x="240" y="640" as="sourcePoint"/>
                         <mxPoint x="160" y="640" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="39" value="Met a jour les stocks" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="1">
-                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
-                        <mxPoint x="290.0000000000001" y="669.9999999999999" as="sourcePoint"/>
-                        <mxPoint x="290.0000000000001" y="699.9999999999999" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="350" y="670"/>
-                            <mxPoint x="350" y="700"/>
-                        </Array>
-                        <mxPoint x="10" y="-10" as="offset"/>
-                    </mxGeometry>
-                </mxCell>
-                <mxCell id="40" value="Genere bon livraison" style="html=1;verticalAlign=bottom;endArrow=block;" edge="1" parent="1">
-                    <mxGeometry x="-0.2" y="-10" width="80" relative="1" as="geometry">
-                        <mxPoint x="290.0000000000001" y="729.9999999999999" as="sourcePoint"/>
-                        <mxPoint x="290.0000000000001" y="759.9999999999999" as="targetPoint"/>
-                        <Array as="points">
-                            <mxPoint x="350" y="730"/>
-                            <mxPoint x="350" y="760"/>
-                        </Array>
-                        <mxPoint x="10" y="-10" as="offset"/>
+                <mxCell id="41" value="Envoie bon livraison" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;entryX=0.979;entryY=0.947;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="25" source="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="240" y="780" as="sourcePoint"/>
+                        <mxPoint x="160" y="780" as="targetPoint"/>
                     </mxGeometry>
                 </mxCell>
             </root>
