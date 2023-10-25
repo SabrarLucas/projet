@@ -1,0 +1,22 @@
+.navbar {
+    background-color: #B8AB8C;
+}
+
+.corps {
+    background-image: url(../images/banhMeThuot.jpg);
+    
+    justify-content: flex-end;
+}
+
+.decouvrir {
+    border: 2px solid;
+}
+
+
+.footer {
+    background-color: #B8AB8C;
+}
+
+.logo-footer {
+    background-color: white;
+}
