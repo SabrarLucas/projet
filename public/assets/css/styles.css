@@ -4,14 +4,40 @@
 
 .corps {
     background-image: url(../images/banhMeThuot.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 40vh;
+    display: flex;
     justify-content: flex-end;
+}
+
+#img-acc {
+    width: 30vw;
+    height: 30vh;
+    flex-direction: column;
 }
 
 .decouvrir {
     border: 2px solid black;
-    color: white;
+    color: black;
+    background-color: lightgray;
+    opacity: 0.5;
+    margin: 10px;
+
 }
 
+.decouvrir p {
+    color: black;
+    opacity: 1;
+}
+
+.sujet {
+    border: 2px solid black;
+}
+
+.testimonial {
+    display: flex;
+}
 
 .footer {
     background-color: #B8AB8C;
