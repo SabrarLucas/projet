@@ -34,14 +34,14 @@ class Orders
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Deliveries::class)]
     private Collection $deliveries;
 
-    #[ORM\ManyToMany(targetEntity: Products::class, mappedBy: 'order_detail')]
-    private Collection $products;
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: ProductsOrders::class)]
+    private Collection $productsOrders;
 
     public function __construct()
     {
         $this->factures = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
-        $this->products = new ArrayCollection();
+        $this->productsOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,27 +158,30 @@ class Orders
     }
 
     /**
-     * @return Collection<int, Products>
+     * @return Collection<int, ProductsOrders>
      */
-    public function getProducts(): Collection
+    public function getProductsOrders(): Collection
     {
-        return $this->products;
+        return $this->productsOrders;
     }
 
-    public function addProduct(Products $product): static
+    public function addProductsOrder(ProductsOrders $productsOrder): static
     {
-        if (!$this->products->contains($product)) {
-            $this->products->add($product);
-            $product->addOrderDetail($this);
+        if (!$this->productsOrders->contains($productsOrder)) {
+            $this->productsOrders->add($productsOrder);
+            $productsOrder->setOrders($this);
         }
 
         return $this;
     }
 
-    public function removeProduct(Products $product): static
+    public function removeProductsOrder(ProductsOrders $productsOrder): static
     {
-        if ($this->products->removeElement($product)) {
-            $product->removeOrderDetail($this);
+        if ($this->productsOrders->removeElement($productsOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($productsOrder->getOrders() === $this) {
+                $productsOrder->setOrders(null);
+            }
         }
 
         return $this;

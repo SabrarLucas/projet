@@ -28,24 +28,20 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
-    // #[ORM\ManyToOne(inversedBy: 'products')]
-    // #[ORM\JoinColumn(nullable: false)]
-    // private ?Suppliers $supplier = null;
-
     #[ORM\ManyToOne(inversedBy: 'product')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
-
-    #[ORM\ManyToMany(targetEntity: Orders::class, inversedBy: 'products')]
-    private Collection $order_detail;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Suppliers $supp_id = null;
 
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductsOrders::class)]
+    private Collection $productsOrders;
+
     public function __construct()
     {
-        $this->order_detail = new ArrayCollection();
+        $this->productsOrders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -101,18 +97,6 @@ class Products
         return $this;
     }
 
-    // public function getSupplier(): ?Suppliers
-    // {
-    //     return $this->supplier;
-    // }
-
-    // public function setSupplier(?Suppliers $supplier): static
-    // {
-    //     $this->supplier = $supplier;
-
-    //     return $this;
-    // }
-
     public function getCategories(): ?Categories
     {
         return $this->categories;
@@ -125,30 +109,6 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection<int, Orders>
-     */
-    public function getOrderDetail(): Collection
-    {
-        return $this->order_detail;
-    }
-
-    public function addOrderDetail(Orders $orderDetail): static
-    {
-        if (!$this->order_detail->contains($orderDetail)) {
-            $this->order_detail->add($orderDetail);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderDetail(Orders $orderDetail): static
-    {
-        $this->order_detail->removeElement($orderDetail);
-
-        return $this;
-    }
-
     public function getSuppId(): ?Suppliers
     {
         return $this->supp_id;
@@ -157,6 +117,36 @@ class Products
     public function setSuppId(?Suppliers $supp_id): static
     {
         $this->supp_id = $supp_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductsOrders>
+     */
+    public function getProductsOrders(): Collection
+    {
+        return $this->productsOrders;
+    }
+
+    public function addProductsOrder(ProductsOrders $productsOrder): static
+    {
+        if (!$this->productsOrders->contains($productsOrder)) {
+            $this->productsOrders->add($productsOrder);
+            $productsOrder->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductsOrder(ProductsOrders $productsOrder): static
+    {
+        if ($this->productsOrders->removeElement($productsOrder)) {
+            // set the owning side to null (unless already changed)
+            if ($productsOrder->getProducts() === $this) {
+                $productsOrder->setProducts(null);
+            }
+        }
 
         return $this;
     }
