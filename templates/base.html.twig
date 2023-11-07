@@ -25,14 +25,20 @@
 
 	</head>
 	<body>
-		{% block header %}
-			{% include "partials/_header.html.twig" %}
-		{% endblock %}
+		{% include "partials/_header.html.twig" %}
+		{% if app.user and app.user.isVerified == false %}
+			<div class="alert alert-warning alert-dismissible" role="alert">
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				<div class="alert-message">
+					<strong>Votre conpte n'est pas activé</strong>, renvoyer le lien d'activation
+				</div>
+			</div>
+		{% endif %}
+
+		{% include "partials/_flash.html.twig" %}
 
 		{% block body %}{% endblock %}
 
-		{% block footer %}
-			{% include "partials/_footer.html.twig" %}
-		{% endblock %}
+		{% include "partials/_footer.html.twig" %}
 	</body>
 </html>
