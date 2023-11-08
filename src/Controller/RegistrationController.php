@@ -3,15 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\Users;
-use App\Form\RegistrationFormType;
-use App\Security\UsersAuthenticator;
+use App\Service\JWTService;
 use App\Service\SendMailService;
+use App\Form\RegistrationFormType;
+use App\Repository\UsersRepository;
+use App\Security\UsersAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
@@ -19,7 +21,7 @@ class RegistrationController extends AbstractController
     #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, 
     UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, 
-    SendMailService $mail): Response
+    SendMailService $mail, JWTService $jwt): Response
     {
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -36,6 +38,18 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $header = [
+                'typ' => 'JWT',
+                'alg' => 'HS256'
+            ];
+
+            $payload = [
+                'user_id' => $user->getId()
+            ];
+
+            $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
+
             // do anything else you need here, like send an email
             
             $mail->send(
@@ -43,7 +57,7 @@ class RegistrationController extends AbstractController
                 $user->getEmail(),
                 'Activation de votre compte sur le site Mon P\'tit grain',
                 'register',
-                compact('user')
+                compact('user', 'token')
             );
 
             return $userAuthenticator->authenticateUser(
@@ -56,5 +70,25 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route(path:'/verif/{token}', name:'verify_user')]
+    public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $manager): Response
+    {
+        if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->Check($token, $this->getParameter('app.jwtsecret'))) {
+            $payload = $jwt->getPayload($token);
+
+            $user = $usersRepository->find($payload['user_id']);
+
+            if($user && !$user->getIsVerified()) {
+                $user->setIsVerified(true);
+                $manager->flush($user);
+                $this->addFlash('success','Utilisateur activé');
+                return $this->redirectToRoute('profile_index');
+            }
+        }
+        $this->addFlash('danger','Le token est invalide ou a expiré');
+
+        return $this->redirectToRoute('app_login');
     }
 }

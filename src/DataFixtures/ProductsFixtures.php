@@ -24,7 +24,7 @@ class ProductsFixtures extends Fixture implements DependentFixtureInterface
             $product = new Products();
             $product->setName($faker->text(10))
                 ->setDescription($faker->text())
-                ->setPrice($faker->numberBetween(200, 1000))
+                ->setPrice($faker->numberBetween(20, 100))
                 ->setImage($faker->imageUrl(300, 300));
 
             $category = $this->getReference('cat-' . rand(2, 4));
