@@ -15,16 +15,33 @@ class CategoriesFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
         
-        $parent = new Categories();
-        $parent->setName('Categorie1')
+        $coffee = new Categories();
+        $coffee->setName('cafes')
                 ->setImage($faker->imageUrl(300,300));
-        $manager->persist($parent);
+        $manager->persist($coffee);
 
-        for($i = 2; $i <=5; $i++) {
+        $teas = new Categories();
+        $teas->setName('thes')
+                ->setImage($faker->imageUrl(300,300));
+        $manager->persist($teas);
+
+        for($i = 1; $i <=5; $i++) {
             $categorie = new Categories();
-            $categorie->setName($faker->text(10))
+            $categorie->setName('cafes' . $i)
                     ->setImage($faker->imageUrl(300, 300))
-                    ->setParent($parent);
+                    ->setParent($coffee);
+
+            $this->addReference('cat-'.$this->counter, $categorie);
+            $this->counter++;
+
+            $manager->persist($categorie);
+        }
+
+        for($i = 1; $i <=5; $i++) {
+            $categorie = new Categories();
+            $categorie->setName('thes' . $i)
+                    ->setImage($faker->imageUrl(300, 300))
+                    ->setParent($teas);
 
             $this->addReference('cat-'.$this->counter, $categorie);
             $this->counter++;
