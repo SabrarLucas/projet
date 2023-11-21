@@ -20,7 +20,7 @@ class ProductsFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $product = new Products();
             $product->setName($faker->text(10))
                 ->setDescription($faker->text())
@@ -28,7 +28,7 @@ class ProductsFixtures extends Fixture implements DependentFixtureInterface
                 ->setStock(10)
                 ->setImage("cafe.png");
 
-            $category = $this->getReference('cat-' . rand(2, 10));
+            $category = $this->getReference('cat-' . rand(1, 10));
             $product->setCategories($category);
 
             $supplier = $this->getReference('sup-' . rand(1, 10));

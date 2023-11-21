@@ -19,9 +19,15 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class RegistrationController extends AbstractController
 {
     #[Route('/inscription', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, 
-    UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, 
-    SendMailService $mail, JWTService $jwt): Response
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher, 
+        UserAuthenticatorInterface $userAuthenticator, 
+        UsersAuthenticator $authenticator, 
+        EntityManagerInterface $entityManager, 
+        SendMailService $mail, 
+        JWTService $jwt
+        ): Response
     {
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -73,7 +79,12 @@ class RegistrationController extends AbstractController
     }
 
     #[Route(path:'/verif/{token}', name:'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UsersRepository $usersRepository, EntityManagerInterface $manager): Response
+    public function verifyUser(
+        $token, 
+        JWTService $jwt, 
+        UsersRepository $usersRepository, 
+        EntityManagerInterface $manager
+        ): Response
     {
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->Check($token, $this->getParameter('app.jwtsecret'))) {
             $payload = $jwt->getPayload($token);
@@ -93,7 +104,11 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/renvoiverif', name: 'resend_verif')]
-    public function resendVerif(JWTService $jwt, SendMailService $mail, UsersRepository $usersRepository): Response
+    public function resendVerif(
+        JWTService $jwt, 
+        SendMailService $mail, 
+        UsersRepository $usersRepository
+        ): Response
     {
         $user = $this->getUser();
 

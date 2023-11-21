@@ -25,9 +25,9 @@ class CategoriesFixtures extends Fixture
                 ->setImage($faker->imageUrl(300,300));
         $manager->persist($teas);
 
-        for($i = 1; $i <=5; $i++) {
+        for($i = 0; $i < 5; $i++) {
             $categorie = new Categories();
-            $categorie->setName('cafes' . $i)
+            $categorie->setName('cafes' . $i + 1)
                     ->setImage($faker->imageUrl(300, 300))
                     ->setParent($coffee);
 
@@ -37,9 +37,9 @@ class CategoriesFixtures extends Fixture
             $manager->persist($categorie);
         }
 
-        for($i = 1; $i <=5; $i++) {
+        for($i = 0; $i < 5; $i++) {
             $categorie = new Categories();
-            $categorie->setName('thes' . $i)
+            $categorie->setName('thes' . $i + 1)
                     ->setImage($faker->imageUrl(300, 300))
                     ->setParent($teas);
 

@@ -11,7 +11,7 @@
 				<h1>Liste des
 					{{ category.name }}</h1>
 			</div>
-			{% for product in products %}
+			{% for product in products.data %}
 				<div class="col-4 mb-3">
 					<div class="card h-100">
 						<img src="{{ asset('assets/images/deuxiemeCafe.jpg') }}" class="img-fluid rounded-start" alt="...">
@@ -23,6 +23,11 @@
 					</div>
 				</div>
 			{% endfor %}
+			{% set path = 'coffee_list' %}
+			{% set name = category.name %}
+			{% set pages = products.pages %}
+			{% set currentPage = products.page %}
+			{% include "partials/_pagination.html.twig" %}
 		</section>
 	</main>
 {% endblock %}
