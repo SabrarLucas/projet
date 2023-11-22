@@ -3,7 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Products;
+use App\Form\ProductsFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,19 +20,64 @@ class ProductsController extends AbstractController
     }
 
     #[Route('/ajout', name: 'add')]
-    public function add(): Response
+    public function add(
+        Request $request, 
+        EntityManagerInterface $em
+        ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        return $this->render('admin/users/index.html.twig');
+        $product = new Products();
+
+        $productForm = $this->createForm(ProductsFormType::class, $product);
+
+        $productForm->handleRequest($request);
+
+        if($productForm->isSubmitted() && $productForm->isValid()){
+            $prix = $product->getPrice();
+            $product->setPrice($prix);
+
+            $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Produit ajouté avec succès');
+
+            return $this->redirectToRoute('admin_products_index');
+        }
+
+        return $this->render('admin/products/add.html.twig', [
+            'productForm' => $productForm->createView()
+        ]);
     }
 
     #[Route('/edition/{id}', name: 'edit')]
-    public function edit(Products $product): Response
+    public function edit(
+        Products $product,
+        Request $request, 
+        EntityManagerInterface $em
+        ): Response
     {
         $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
 
-        return $this->render('admin/users/index.html.twig');
+        $productForm = $this->createForm(ProductsFormType::class, $product);
+
+        $productForm->handleRequest($request);
+
+        if($productForm->isSubmitted() && $productForm->isValid()){
+            $prix = $product->getPrice();
+            $product->setPrice($prix);
+
+            $em->persist($product);
+            $em->flush();
+
+            $this->addFlash('success', 'Produit ajouté avec succès');
+
+            return $this->redirectToRoute('admin_products_index');
+        }
+
+        return $this->render('admin/products/edit.html.twig', [
+            'productForm' => $productForm->createView()
+        ]);
     }
 
     #[Route('/suppression/{id}', name: 'delete')]
@@ -37,6 +85,6 @@ class ProductsController extends AbstractController
     {
         $this->denyAccessUnlessGranted('PRODUCT_DELETE', $product);
         
-        return $this->render('admin/users/index.html.twig');
+        return $this->render('admin/products/index.html.twig');
     }
 }
