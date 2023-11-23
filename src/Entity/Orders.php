@@ -34,7 +34,7 @@ class Orders
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Deliveries::class)]
     private Collection $deliveries;
 
-    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: ProductsOrders::class)]
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: ProductsOrders::class, cascade: ['persist'])]
     private Collection $productsOrders;
 
     public function __construct()
@@ -42,6 +42,8 @@ class Orders
         $this->factures = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->productsOrders = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
+        $this->delivery = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

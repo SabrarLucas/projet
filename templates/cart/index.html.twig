@@ -3,7 +3,7 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-    <main class="container">
+    <main class="container mb-3">
         <section class="row">
             <div class="col-12">
                 <h1>Panier</h1>
@@ -46,6 +46,7 @@
                         </tr>
                     </tfoot>
                 </table>
+                <a href="{{ path('orders_add') }}" class="btn btn-primary">Valider le panier</a>
             </div>
         </section>
     </main>
