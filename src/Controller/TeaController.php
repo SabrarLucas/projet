@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/cafes', name: 'coffee_')]
-class CoffeeController extends AbstractController
+#[Route('/thes', name: 'tea_')]
+class TeaController extends AbstractController
 {
     #[Route('/', name: 'index')]
     public function index(
@@ -19,7 +19,7 @@ class CoffeeController extends AbstractController
         ): Response
     {
         return $this->render('coffee/index.html.twig', [
-            'categories' => $categoriesRepository->findBy(['parent' => 1])
+            'categories' => $categoriesRepository->findBy(['parent' => 2])
         ]);
     }
 
