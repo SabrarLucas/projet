@@ -1,13 +1,48 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Administartion des produits{% endblock %}
+{% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-<main class="container mb-3">
-        <section class="row">
-            <div class="col-12">
-                <h1>Administration des produits</h1>
-            </div>
-        </section>
-    </main>
+    <div class="container">
+        <div class="row">
+            {% include "partials/_adminnav.html.twig" %}
+            <main class="col-9 border border-light bg-white p-2">
+                <h1>Liste des produits</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Categories</th>
+                            {# <th>Fournisseur</th> #}
+                            <th>Nom</th>
+                            {# <th>Description</th> #}
+                            <th>Prix</th>
+                            <th>Images</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in produits %}
+                            <tr>
+                                <td>{{ produit.id }}</td>
+                                <td>{{ produit.categories.name }}</td>
+                                {# <td>{{ produit.name }}</td> #}
+                                <td>{{ produit.name }}</td>
+                                {# <td>{{ produit.description }}</td> #}
+                                <td>{{ produit.price }}</td>                                    
+                                <td>
+                                    <img src="{{ asset('assets/images/products/mini/300x300-' ~ produit.image) }}" alt="{{ produit.name }}" width="200px">
+                                </td>
+                                <td>{{ produit.stock }}</td>
+                                <td>
+                                    <a  class="btn btn-warning" href="{{ path('admin_products_edit', {id: produit.id}) }}">Modifier</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </div>
 {% endblock %}
