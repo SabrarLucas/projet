@@ -9,6 +9,7 @@ use App\Repository\CategoriesRepository;
 use App\Repository\SuppliersRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,7 +25,11 @@ class ProductsFormType extends AbstractType
             ->add('price', options:[
                 'label' => 'Prix'
             ])
-            ->add('image')
+            ->add('image', FileType::class, [
+                'label' => 'Image du produit',
+                'mapped' => false,
+                'required' => false
+            ])
             ->add('stock', options:[
                 'label' => 'Unités en stock'
             ])

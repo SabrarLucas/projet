@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Products;
 use App\Form\ProductsFormType;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +23,8 @@ class ProductsController extends AbstractController
     #[Route('/ajout', name: 'add')]
     public function add(
         Request $request, 
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        PictureService $pictureService
         ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
@@ -34,6 +36,14 @@ class ProductsController extends AbstractController
         $productForm->handleRequest($request);
 
         if($productForm->isSubmitted() && $productForm->isValid()){
+            $image = $productForm->get('image')->getData();
+
+            $folder = 'products';
+
+            $fichier = $pictureService->add($image, $folder, 300, 300);
+
+            $product->setImage($fichier);
+
             $prix = $product->getPrice();
             $product->setPrice($prix);
 
