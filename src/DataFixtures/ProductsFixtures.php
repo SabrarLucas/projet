@@ -32,7 +32,7 @@ class ProductsFixtures extends Fixture implements DependentFixtureInterface
             $product->setCategories($category);
 
             $supplier = $this->getReference('sup-' . rand(1, 10));
-            $product->setSuppId($supplier);
+            $product->setSuppliers($supplier);
 
             $manager->persist($product);
         }

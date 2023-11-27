@@ -83,7 +83,7 @@ class ProductsController extends AbstractController
             $em->persist($product);
             $em->flush();
 
-            $this->addFlash('success', 'Produit ajouté avec succès');
+            $this->addFlash('success', 'Produit modifié avec succès');
 
             return $this->redirectToRoute('admin_products_index');
         }

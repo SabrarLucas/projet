@@ -32,15 +32,14 @@ class Products
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Suppliers $supp_id = null;
-
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductsOrders::class)]
     private Collection $productsOrders;
 
     #[ORM\Column]
     private ?int $stock = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Suppliers $suppliers = null;
 
     public function __construct()
     {
@@ -112,18 +111,6 @@ class Products
         return $this;
     }
 
-    public function getSuppId(): ?Suppliers
-    {
-        return $this->supp_id;
-    }
-
-    public function setSuppId(?Suppliers $supp_id): static
-    {
-        $this->supp_id = $supp_id;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, ProductsOrders>
      */
@@ -162,6 +149,18 @@ class Products
     public function setStock(int $stock): static
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getSuppliers(): ?Suppliers
+    {
+        return $this->suppliers;
+    }
+
+    public function setSuppliers(?Suppliers $suppliers): static
+    {
+        $this->suppliers = $suppliers;
 
         return $this;
     }
