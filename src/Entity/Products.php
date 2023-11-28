@@ -32,18 +32,18 @@ class Products
     #[ORM\JoinColumn(nullable: false)]
     private ?Categories $categories = null;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductsOrders::class)]
-    private Collection $productsOrders;
-
     #[ORM\Column]
     private ?int $stock = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     private ?Suppliers $suppliers = null;
 
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: Details::class)]
+    private Collection $details;
+
     public function __construct()
     {
-        $this->productsOrders = new ArrayCollection();
+        $this->details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,36 +111,6 @@ class Products
         return $this;
     }
 
-    /**
-     * @return Collection<int, ProductsOrders>
-     */
-    public function getProductsOrders(): Collection
-    {
-        return $this->productsOrders;
-    }
-
-    public function addProductsOrder(ProductsOrders $productsOrder): static
-    {
-        if (!$this->productsOrders->contains($productsOrder)) {
-            $this->productsOrders->add($productsOrder);
-            $productsOrder->setProducts($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProductsOrder(ProductsOrders $productsOrder): static
-    {
-        if ($this->productsOrders->removeElement($productsOrder)) {
-            // set the owning side to null (unless already changed)
-            if ($productsOrder->getProducts() === $this) {
-                $productsOrder->setProducts(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getStock(): ?int
     {
         return $this->stock;
@@ -161,6 +131,36 @@ class Products
     public function setSuppliers(?Suppliers $suppliers): static
     {
         $this->suppliers = $suppliers;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Details>
+     */
+    public function getDetails(): Collection
+    {
+        return $this->details;
+    }
+
+    public function addDetail(Details $detail): static
+    {
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetail(Details $detail): static
+    {
+        if ($this->details->removeElement($detail)) {
+            // set the owning side to null (unless already changed)
+            if ($detail->getProducts() === $this) {
+                $detail->setProducts(null);
+            }
+        }
 
         return $this;
     }

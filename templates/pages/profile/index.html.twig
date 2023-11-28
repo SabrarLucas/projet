@@ -6,8 +6,13 @@
 {% block body %}
 	<main class="container mb-3">
 		<section class="row">
-			<h3>Bonjour {{app.user.name}} {{ app.user.lastname }}.</h3>
-            <p>Bienvenu sur vôtre profile</p>
+			<div class="col-10">
+				<h3>Bonjour {{app.user.name}} {{ app.user.lastname }}.</h3>
+				<p>Bienvenu sur vôtre profile</p>
+			</div>
+			<div class="col-2">
+				<a href="{{ path('orders_index', {id: app.user.id}) }}" class="btn btn-primary">Mes commandes</a>
+			</div>
 		</section>
 	</main>
 {% endblock %}

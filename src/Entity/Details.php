@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductsOrdersRepository;
+use App\Repository\DetailsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ProductsOrdersRepository::class)]
-class ProductsOrders
+#[ORM\Entity(repositoryClass: DetailsRepository::class)]
+class Details
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,12 +18,14 @@ class ProductsOrders
     private ?int $quantity = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
-    private ?string $price_tot = null;
+    private ?string $total = null;
 
-    #[ORM\ManyToOne(inversedBy: 'productsOrders')]
+    #[ORM\ManyToOne(inversedBy: 'details')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Orders $orders = null;
 
-    #[ORM\ManyToOne(inversedBy: 'productsOrders')]
+    #[ORM\ManyToOne(inversedBy: 'details')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Products $products = null;
 
     public function getId(): ?int
@@ -43,14 +45,14 @@ class ProductsOrders
         return $this;
     }
 
-    public function getPriceTot(): ?string
+    public function getTotal(): ?string
     {
-        return $this->price_tot;
+        return $this->total;
     }
 
-    public function setPriceTot(string $price_tot): static
+    public function setTotal(string $total): static
     {
-        $this->price_tot = $price_tot;
+        $this->total = $total;
 
         return $this;
     }

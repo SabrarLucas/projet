@@ -46,7 +46,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <a href="{{ path('orders_add') }}" class="btn btn-primary">Valider le panier</a>
+                <a href="{{ path('orders_add', {'id': app.user.id}) }}" class="btn btn-primary">Valider le panier</a>
             </div>
         </section>
     </main>

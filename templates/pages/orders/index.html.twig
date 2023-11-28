@@ -1,20 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrdersController!{% endblock %}
+{% block title %}Commandes
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/lucas/Bureau/projet/src/Controller/OrdersController.php'|file_link(0) }}">src/Controller/OrdersController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/lucas/Bureau/projet/templates/orders/index.html.twig'|file_link(0) }}">templates/orders/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<main class="container mb-3">
+		<section class="row">
+			<div class="col-12">
+				<h1>Mes commandes</h1>
+				<table class="table table-striped mt-4">
+					<thead>
+						<tr class="table-dark">
+							<th scope="col">Date de la commande</th>
+							<th class="d-none d-lg-table-cell" scope="col">Total</th>
+							<th class="d-none d-lg-table-cell" scope="col">État de la commande</th>
+							<th scope="col">Détail</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for order in user.orders %}
+							<tr class="table-light">
+								<th scope="row">{{ order.createdAt | date('d/m/Y') }}</th>
+								{# <td class="d-none d-lg-table-cell">{{ order.details }} #}
+									€</td>
+								<td class="d-none d-lg-table-cell">
+									{% if order.status == 0 %}
+										Enregistée/payée
+									{% endif %}
+									{% if order.status == 1 %}
+										En préparation
+									{% endif %}
+									{% if order.status == 2 %}
+										en cours de livraison
+									{% endif %}
+									{% if order.status == 3 %}
+										Livrée
+									{% endif %}
+								</td>
+								<td>
+									<a href="#" class="btn btn-dark">Détail</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
 {% endblock %}

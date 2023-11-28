@@ -103,7 +103,6 @@ class CartController extends AbstractController
         SessionInterface $session
         )
     {
-
         $session->remove('panier');
 
         return $this->redirectToRoute('cart_index');

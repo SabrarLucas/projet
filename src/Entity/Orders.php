@@ -34,16 +34,16 @@ class Orders
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: Deliveries::class)]
     private Collection $deliveries;
 
-    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: ProductsOrders::class, cascade: ['persist'])]
-    private Collection $productsOrders;
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: Details::class, cascade: ["persist"])]
+    private Collection $details;
 
     public function __construct()
     {
         $this->factures = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
-        $this->productsOrders = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
         $this->delivery = new \DateTimeImmutable();
+        $this->details = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -160,29 +160,29 @@ class Orders
     }
 
     /**
-     * @return Collection<int, ProductsOrders>
+     * @return Collection<int, Details>
      */
-    public function getProductsOrders(): Collection
+    public function getDetails(): Collection
     {
-        return $this->productsOrders;
+        return $this->details;
     }
 
-    public function addProductsOrder(ProductsOrders $productsOrder): static
+    public function addDetail(Details $detail): static
     {
-        if (!$this->productsOrders->contains($productsOrder)) {
-            $this->productsOrders->add($productsOrder);
-            $productsOrder->setOrders($this);
+        if (!$this->details->contains($detail)) {
+            $this->details->add($detail);
+            $detail->setOrders($this);
         }
 
         return $this;
     }
 
-    public function removeProductsOrder(ProductsOrders $productsOrder): static
+    public function removeDetail(Details $detail): static
     {
-        if ($this->productsOrders->removeElement($productsOrder)) {
+        if ($this->details->removeElement($detail)) {
             // set the owning side to null (unless already changed)
-            if ($productsOrder->getOrders() === $this) {
-                $productsOrder->setOrders(null);
+            if ($detail->getOrders() === $this) {
+                $detail->setOrders(null);
             }
         }
 

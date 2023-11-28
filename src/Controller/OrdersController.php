@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Details;
 use App\Entity\Orders;
-use App\Entity\Products;
-use App\Entity\ProductsOrders;
+use App\Entity\Users;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/commandes', name: 'orders_')]
 class OrdersController extends AbstractController
 {
-    #[Route('/ajout', name: 'add')]
+    #[Route('/{id}', name: 'index')]
+    public function index(Users $user): Response
+    {
+        return $this->render('pages/orders/index.html.twig', compact('user'));
+    }
+
+    #[Route('/ajout/{id}', name: 'add')]
     public function add(
         SessionInterface $session,
         ProductsRepository $productsRepository,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        Users $user
         ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -36,17 +43,17 @@ class OrdersController extends AbstractController
         $order->setUser($this->getUser());
 
         foreach($panier as $item => $quantity){
-            $orderDetails = new ProductsOrders();
+            $detail = new Details();
 
             $product = $productsRepository->find($item);
             
             $price = $product->getPrice();
 
-            $orderDetails->setProducts($product)
-                ->setPriceTot($price)
+            $detail->setProducts($product)
+                ->setTotal($price)
                 ->setQuantity($quantity);
 
-            $order->addProductsOrder($orderDetails)
+            $order->addDetail($detail)
                 ->setStatus('');
         }
 
