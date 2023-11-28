@@ -45,7 +45,7 @@ class ProductsFormType extends AbstractType
                         ->ORDERbY('c.name', 'ASC');
                 }
             ])
-            ->add('supp_id', EntityType::class, [
+            ->add('suppliers', EntityType::class, [
                 'class' => Suppliers::class,
                 'choice_label' => 'name',
                 'label' => 'Fournisseur',
