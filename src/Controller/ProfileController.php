@@ -12,7 +12,7 @@ class ProfileController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->render('profile/index.html.twig', [
+        return $this->render('pages/profile/index.html.twig', [
             'controller_name' => 'ProfileController',
         ]);
     }
@@ -20,7 +20,7 @@ class ProfileController extends AbstractController
     #[Route('/commande', name: 'orders')]
     public function orders(): Response
     {
-        return $this->render('profile/index.html.twig', [
+        return $this->render('pages/profile/index.html.twig', [
             'controller_name' => 'Commandes de l\'utilisateur',
         ]);
     }

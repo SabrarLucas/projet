@@ -32,7 +32,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('security/login.html.twig', [
+        return $this->render('pages/security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
         ]);
@@ -84,7 +84,7 @@ class SecurityController extends AbstractController
             $this->addFlash('danger', 'Un problème est survenu');
             return $this->redirectToRoute('app_login');
         }
-        return $this->render('security/reset_password_request.html.twig', [
+        return $this->render('pages/security/reset_password_request.html.twig', [
             'requestPassForm' => $form->createView()
         ]);
     }
@@ -120,7 +120,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            return $this->render('security/reset_password.html.twig', [
+            return $this->render('pages/security/reset_password.html.twig', [
                 'passForm' => $form->createView()
             ]);
         }

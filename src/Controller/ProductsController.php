@@ -13,7 +13,7 @@ class ProductsController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->render('products/index.html.twig', []);
+        return $this->render('pages/products/index.html.twig', []);
     }
 
     #[Route('/{name}', name: 'details')]
@@ -21,6 +21,6 @@ class ProductsController extends AbstractController
         Products $product
         ): Response
     {
-        return $this->render('products/details.html.twig', compact('product'));
+        return $this->render('pages/products/details.html.twig', compact('product'));
     }
 }
