@@ -18,7 +18,7 @@ class TeaController extends AbstractController
         CategoriesRepository $categoriesRepository
         ): Response
     {
-        return $this->render('coffee/index.html.twig', [
+        return $this->render('pages/coffee/index.html.twig', [
             'categories' => $categoriesRepository->findBy(['parent' => 2])
         ]);
     }
@@ -34,6 +34,6 @@ class TeaController extends AbstractController
 
         $products = $productsRepository->findProductPaginated($page, $category->getName(), 3);
 
-        return $this->render('coffee/list.html.twig', compact('category', 'products'));
+        return $this->render('pages/coffee/list.html.twig', compact('category', 'products'));
     }
 }
