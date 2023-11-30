@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Details;
 use App\Entity\Orders;
 use App\Entity\Users;
+use App\Repository\OrdersRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,12 +22,19 @@ class OrdersController extends AbstractController
         return $this->render('pages/orders/index.html.twig', compact('user'));
     }
 
+    #[Route('/detail/{id}', 'detail')]
+    public function detail(Orders $order, $id) : Response
+    {
+        return $this->render('pages/orders/detail.html.twig', [
+            'order' => $order
+        ]);
+    }
+
     #[Route('/ajout/{id}', name: 'add')]
     public function add(
         SessionInterface $session,
         ProductsRepository $productsRepository,
         EntityManagerInterface $em,
-        Users $user
         ): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -54,7 +62,7 @@ class OrdersController extends AbstractController
                 ->setQuantity($quantity);
 
             $order->addDetail($detail)
-                ->setStatus('');
+                ->setStatus(0);
         }
 
         $em->persist($order);
