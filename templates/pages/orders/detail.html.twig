@@ -7,8 +7,24 @@
 	<main class="container">
 		<section class="row">
 			<div class="col-12">
-				<h1>Detail de la commande du {{ order.createdAt | date('d/m/Y') }}</h1>
-                {# <p>{{ order.details.quantity }}</p> #}
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Date commande</th>
+							<th>Produit</th>
+							<th>Quantités</th>
+							<th>Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for detail in details %}
+							<td>{{ detail.orders.createdAt | date('d/m/Y') }}</td>
+							<td>{{ detail.products.name }}</td>
+							<td>{{ detail.quantity }}</td>
+							<td>{{ detail.total }}</td>
+						{% endfor %}
+					</tbody>
+				</table>
 			</div>
 		</section>
 	</main>

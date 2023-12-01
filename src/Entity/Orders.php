@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrdersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrdersRepository::class)]
@@ -36,6 +37,9 @@ class Orders
 
     #[ORM\OneToMany(mappedBy: 'orders', targetEntity: Details::class, cascade: ["persist"])]
     private Collection $details;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 2)]
+    private ?string $total = null;
 
     public function __construct()
     {
@@ -185,6 +189,18 @@ class Orders
                 $detail->setOrders(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): ?string
+    {
+        return $this->total;
+    }
+
+    public function setTotal(string $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }

@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Details;
 use App\Entity\Orders;
 use App\Entity\Users;
-use App\Repository\OrdersRepository;
+use App\Repository\DetailsRepository;
 use App\Repository\ProductsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,10 +23,10 @@ class OrdersController extends AbstractController
     }
 
     #[Route('/detail/{id}', 'detail')]
-    public function detail(Orders $order, $id) : Response
+    public function detail(DetailsRepository $detailsRepository, $id) : Response
     {
         return $this->render('pages/orders/detail.html.twig', [
-            'order' => $order
+            'details' => $detailsRepository->findBy(['orders' => $id])
         ]);
     }
 
@@ -50,19 +50,24 @@ class OrdersController extends AbstractController
 
         $order->setUser($this->getUser());
 
+        $total = 0;
+
         foreach($panier as $item => $quantity){
             $detail = new Details();
 
             $product = $productsRepository->find($item);
             
             $price = $product->getPrice();
+            
+            $total += $product->getPrice() * $quantity;
 
             $detail->setProducts($product)
                 ->setTotal($price)
                 ->setQuantity($quantity);
 
             $order->addDetail($detail)
-                ->setStatus(0);
+                ->setStatus(0)
+                ->setTotal($total);
         }
 
         $em->persist($order);
