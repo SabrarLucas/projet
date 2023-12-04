@@ -15,7 +15,6 @@
                             <th>Categories</th>
                             <th>Fournisseur</th>
                             <th>Nom</th>
-                            {# <th>Description</th> #}
                             <th>Prix</th>
                             <th>Images</th>
                             <th>Stock</th>
@@ -29,14 +28,14 @@
                                 <td>{{ produit.categories.name }}</td>
                                 <td>{{ produit.suppliers.name}}</td>
                                 <td>{{ produit.name }}</td>
-                                {# <td>{{ produit.description }}</td> #}
                                 <td>{{ produit.price }}</td>                                    
                                 <td>
                                     <img src="{{ asset('assets/images/products/mini/300x300-' ~ produit.image) }}" alt="{{ produit.name }}" width="200px">
                                 </td>
                                 <td>{{ produit.stock }}</td>
-                                <td>
+                                <td class="row">
                                     <a  class="btn btn-warning" href="{{ path('admin_products_edit', {id: produit.id}) }}">Modifier</a>
+                                    <a  class="btn btn-danger" href="{{ path('admin_products_delete', {id: produit.id}) }}">Supprimer</a>
                                 </td>
                             </tr>
                         {% endfor %}

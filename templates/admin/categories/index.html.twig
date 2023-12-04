@@ -15,6 +15,7 @@
                             <th>Nom</th>
                             <th>Parent</th>
                             <th>Images</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -27,7 +28,13 @@
                                         {{ categorie.parent.name }}</td>
                                     {% endif %}
                                 </td>
-                                <td><img src="{{ asset('assets/images/categorie/mini/300x300-' ~ categorie.image) }}" alt="{{ categorie.name }}" width="200px"></td>
+                                <td>
+                                    <img src="{{ asset('assets/images/categorie/mini/300x300-' ~ categorie.image) }}" alt="{{ categorie.name }}" width="200px">
+                                </td>
+                                <td>
+                                    <a  class="btn btn-warning" href="{{ path('admin_categories_edit', {id: categorie.id}) }}">Modifier</a>
+                                    <a  class="btn btn-danger" href="{{ path('admin_categories_delete', {id: categorie.id}) }}">Supprimer</a>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
