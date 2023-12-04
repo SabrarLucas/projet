@@ -18,12 +18,20 @@
 					</thead>
 					<tbody>
 						{% for detail in details %}
-							<td>{{ detail.orders.createdAt | date('d/m/Y') }}</td>
-							<td>{{ detail.products.name }}</td>
-							<td>{{ detail.quantity }}</td>
-							<td>{{ detail.total }}</td>
+							<tr>
+								<td>{{ detail.orders.createdAt | date('d/m/Y') }}</td>
+								<td>{{ detail.products.name }}</td>
+								<td>{{ detail.quantity }}</td>
+								<td>{{ detail.total }}</td>
+							</tr>
 						{% endfor %}
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="3"></td>
+							<td><a href="{{ path('orders_index', {id: app.user.id}) }}" class="btn btn-primary">Retour</a></td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</section>
