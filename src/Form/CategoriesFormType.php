@@ -26,7 +26,7 @@ class CategoriesFormType extends AbstractType
             ->add('parent', EntityType::class, [
                 'class' => Categories::class,
                 'choice_label' => 'name',
-                'label' => 'Catégorie',
+                'label' => 'Catégorie parent',
                 'group_by' => 'parent.name',
                 'query_builder' => function(CategoriesRepository $cr)
                 {
